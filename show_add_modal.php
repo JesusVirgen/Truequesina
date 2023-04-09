@@ -36,22 +36,24 @@
                         <div style="height:10px;"></div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label class="control-label" style="position:relative; top:7px;">Gender:</label>
+                                <label class="control-label" style="position:relative; top:7px;">Resumen:</label>
                             </div>
                             <div class="col-lg-8">
-                                <select name="gender">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
+                                <textarea class="form-control" name="resumen" rows="3"></textarea>
                             </div>
                         </div>
                         <div style="height:10px;"></div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label class="control-label" style="position:relative; top:7px;">Resumen:</label>
+                                <label class="control-label" style="position:relative; top:7px;">Categoria:</label>
                             </div>
                             <div class="col-lg-8">
-                                <textarea class="form-control" name="resumen" rows="3"></textarea>
+                                <select name="genero">
+                                    <option value="Seleccione">Seleccione...</option>
+                                    <?php while ($row_categoria = $sqlCategoria->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row_categoria["idgenero"]; ?>"><?= $row_categoria["genero"] ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <div style="height:10px;"></div>
@@ -70,27 +72,23 @@
                             </div>
                             <div class="col-lg-8">
                                 <select name="estatus">
-                                    <option value="Colima">Colima</option>
-                                    <option value="Villa de Alvárez">Villa de Alvárez</option>
-                                    <option value="Coquimatlán">Coquimatlán</option>
-                                    <option value="Técoman">Técoman</option>
-                                    <option value="Manzanillo">Manzanillo</option>
-                                    <option value="Minatitlán">Minatitlán</option>
-                                    <option value="Ixtlahuacán">Ixtlahuacán</option>
-                                    <option value="Cuahutemóc">Cuahutemóc</option>
-                                    <option value="Armería">Armería</option>
+                                    <option value="Seleccione">Seleccione...</option>
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="No Disponible">No disponible</option>
                                 </select>
                             </div>
                         </div>
                         <div style="height:10px;"></div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label class="control-label" style="position:relative; top:7px;">Campus:</label>
+                                <label class="control-label" style="position:relative; top:7px;">Campús:</label>
                             </div>
                             <div class="col-lg-8">
                                 <select name="campus">
-                                    <option>Coquimatlán</option>
-                                    <option>Colima</option>
+                                    <option value="Seleccione">Seleccione...</option>
+                                    <?php while ($row_campus = $sqlCampus->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row_campus["idcampus"]; ?>"><?= $row_campus["campus"] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>

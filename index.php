@@ -22,8 +22,7 @@
 	<!-- Bootstrap y header & footer agregados -->
 	<link href="//www.ucol.mx/cms/headerfooterapp2.css?v=3" rel="stylesheet">
 	<link href="//www.ucol.mx/cms/beta/css/carrusel.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css"></style>
-	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<script>
@@ -45,19 +44,20 @@
 <body>
 	<div id="estructura">
 	<!-- Fixed navbar -->
-	<nav class="navbar navbar-light bg-faded theme-primary pos-f-t">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-12 col-lg-12 col-md-12 col-xs-12">
-					<button class="navbar-toggler hidden-md-up pull-right collapsed" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false">&#x2630;</button>			        
-					<div class="collapse navbar-toggleable-sm" id="navbar-header">
-			            <a class="navbar-brand" id="logo" href="//www.ucol.mx/">Universidad de Colima</a>
-			            <span class="home-href"><a href="./"></a></span>
-			        </div>
+		<nav class="navbar navbar-light bg-faded theme-primary pos-f-t">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-xs-12">
+						<button class="navbar-toggler hidden-md-up pull-right collapsed" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false">&#x2630;</button>			        
+						<div class="collapse navbar-toggleable-sm" id="navbar-header">
+			            	<a class="navbar-brand" id="logo" href="//www.ucol.mx/">Universidad de Colima</a>
+			            	<span class="home-href"><a href="./"></a></span>
+			        	</div>
+					</div>
 				</div>
 			</div>
-		</div>
-    </nav> <!-- /navbar -->
+    	</nav> <!-- /navbar -->
+	</div>
 	<section class="page-breadcrumb">
 		<div class="container ">
 			<div id="path">
@@ -99,7 +99,7 @@
 			Agregar Libro
 		</button>
 	</span>
-    <div style="margin:20px auto">
+    <div style="margin:10px auto">
         <div class="container">
             <div style="text-align:center;color:green">
             <div style="height:50px;"></div>
@@ -111,6 +111,7 @@
                         <th><center>Autor</center></th>
                         <th><center>Editorial</center></th>
                         <th><center>Resumen</center></th>
+						<th><center>Categorias</center></th>
                         <th><center>Existencia</center></th>
                         <th><center>Estatus</center></th>
                         <th><center>Campús</center></th>
@@ -119,13 +120,14 @@
                     </thead>
 
                     <tbody>
-					<?php
-					include_once "database.php";
-					$contador = 0;
-					$result = $mysqli->query("select * from employee_basics");
-					while ($row = $result->fetch_assoc()) {
-    					$contador++;
-    				?>
+						<?php
+						include_once "database.php";
+						$contador = 0;
+						$result = $mysqli->query("select * from libros inner join genero on id_categoria=idgenero inner join campus on id_campus=idcampus");
+
+						while ($row = $result->fetch_assoc()) {
+    						$contador++;
+    					?>
                         	<tr>
                             	<td><?=$contador;?></td>
                             	<td><img src="profile_images/<?php echo $row['id'] . '.jpg?n=' . time(); ?> " width="70"></td>
@@ -133,6 +135,7 @@
                             	<td><?php echo $row['autor']; ?></td>
                             	<td><?php echo $row['editorial']; ?></td>
                             	<td><?php echo $row['resumen']; ?></td>
+								<td><?php echo $row['genero']; ?></td>
                             	<td><?php echo $row['existencia']; ?></td>
                             	<td><?php echo $row['estatus']; ?></td>
                             	<td><?php echo $row['campus']; ?></td>
@@ -159,6 +162,10 @@
                         <?php }?>
                     </tbody>
                 </table>
+				<?php
+				$sqlCategoria = $mysqli->query("select * from genero");
+				$sqlCampus = $mysqli->query("select * from campus");
+				?>
             </div>
             <!-- include insert modal -->
             <?php include 'show_add_modal.php';?>

@@ -4,22 +4,22 @@ $id = $_GET['id'];
 $titulo = $_POST['titulo'];
 $autor = $_POST['autor'];
 $editorial = $_POST['editorial'];
-$gender = $_POST['gender'];
 $resumen = $_POST['resumen'];
+$categorias=$_POST['genero'];
 $existencia = $_POST['existencia'];
 $estatus = $_POST['estatus'];
 $campus = $_POST['campus'];
-$post = $_POST['post'];
+$fecha = $_POST['fecha'];
 
-$mysqli->query("update employee_basics set titulo='$titulo', autor='$autor', editorial='$editorial', gender='$gender', resumen='$resumen', existencia='$existencia', estatus='$estatus', campus='$campus', post='$post' where id=$id");
+$mysqli->query("update libros set titulo='$titulo', autor='$autor', editorial='$editorial', resumen='$resumen', id_categoria=$categorias, existencia='$existencia', estatus='$estatus', id_campus=$campus, fecha='$fecha' where id=$id");
 
 // Set a constant
-define("FILEREPOSITORY", "profile_images/");
+define("FILEREPOSITORY", "profile_images");
 
 // Make sure that the file was POSTed.
-if (is_uploaded_file($_FILES['pimage']['tmp_name'])) {
+if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
 // Was the file a JPEG?
-    if ($_FILES['pimage']['type'] != "image/jpeg") {
+    if ($_FILES['foto']['type'] != "image/jpeg") {
         echo "<p>Profile image must be uploaded in JPEG format.</p>";
     } else {
 
@@ -27,8 +27,7 @@ if (is_uploaded_file($_FILES['pimage']['tmp_name'])) {
         $filename = $id . ".jpg";
 
         unlink(FILEREPOSITORY . $filename);
-        $result = move_uploaded_file($_FILES['pimage']['tmp_name'],
-            FILEREPOSITORY . $filename);
+        $result = move_uploaded_file($_FILES['foto']['tmp_name'], FILEREPOSITORY . $filename);
 //$result = move_uploaded_file($_FILES['pimg']['tmp_name'], "http://localhost/php_crud/profile_images/28.jpg");
         if ($result == 1) {
             echo "<p>File successfully uploaded.</p>";

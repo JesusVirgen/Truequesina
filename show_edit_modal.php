@@ -8,8 +8,10 @@
             </div>
             <div class="modal-body">
                 <?php
-                $edit=$mysqli->query("select * from employee_basics where id=".$row['id']);
+                $edit=$mysqli->query("select * from libros where id=".$row['id']);
                 $erow=$edit->fetch_assoc();
+                $sqlCategoria = $mysqli->query("select * from genero");
+                $row_categoria = $sqlCategoria->fetch_assoc();
                 ?>
                 <div class="container-fluid">
                     <form method="POST" action="update.php?id=<?php echo $erow['id']; ?>" enctype="multipart/form-data">
@@ -43,7 +45,21 @@
                                 <label style="position:relative; top:7px;">Resumen:</label>
                             </div>
                             <div class="col-lg-8">
-                                <textarea name="resumen" class="form-control" rows="3" value="<?php echo $erow['resumen']; ?>"></textarea>
+                                <textarea name="resumen" class="form-control" rows="3"><?php echo $erow['resumen']; ?></textarea>
+                            </div>
+                        </div>
+                        <div style="height:10px;"></div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="control-label" style="position:relative; top:7px;">Categoria:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select name="genero">
+                                    <?php while ($row_categoria = $sqlCategoria->fetch_assoc()) { ?>
+                                    <option><?php echo $row["genero"]; ?></option>
+                                    <option value="<?php echo $row_categoria["idgenero"]; ?>"><?= $row_categoria["genero"] ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <div style="height:10px;"></div>
@@ -66,8 +82,8 @@
                                         <option selected>Disponible</option>
                                         <option>No disponible</option>
                                     <?php }else{ ?>
-                                        <option>Disponible</option>
                                         <option selected>No disponible</option>
+                                        <option>Disponible</option>
                                     <?php }?>
                                 </select>
                             </div>
@@ -75,30 +91,15 @@
                         <div style="height:10px;"></div>
                         <div class="row">
                             <div class="col-lg-4" align="left">
-                                <label style="position:relative; top:7px;">Campús:</label>
+                                <label style="position:relative; top:7px;">Categoria:</label>
                             </div>
                             <div class="col-lg-8" align="left">
                                 <select name="campus">
-                                    <?php if ($erow['campus']=="Colima") {?>
-                                        <option value="Colima" selected>Colima</option>
-                                        <option value="Villa de Alvárez">Villa de Alvárez</option>
-                                        <option value="Coquimatlán">Coquimatlán</option>
-                                        <option value="Técoman">Técoman</option>
-                                        <option value="Manzanillo">Manzanillo</option>
-                                        <option value="Minatitlán">Minatitlán</option>
-                                        <option value="Ixtlahuacán">Ixtlahuacán</option>
-                                        <option value="Cuahutemóc">Cuahutemóc</option>
-                                        <option value="Armería">Armería</option>
+                                    <?php if ($row['campus']=="Seleccione") {?>
+                                        <option selected><?php echo $row['campus'];?></option>
                                     <?php }else{ ?>
-                                        <option value="Colima">Colima</option>
-                                        <option value="Villa de Alvárez" selected>Villa de Alvárez</option>
-                                        <option value="Coquimatlán">Coquimatlán</option>
-                                        <option value="Técoman">Técoman</option>
-                                        <option value="Manzanillo">Manzanillo</option>
-                                        <option value="Minatitlán">Minatitlán</option>
-                                        <option value="Ixtlahuacán">Ixtlahuacán</option>
-                                        <option value="Cuahutemóc">Cuahutemóc</option>
-                                        <option value="Armería">Armería</option>
+                                        <option selected><?php echo $row['campus'];?></option>
+
                                     <?php }?>
                                 </select>
                             </div>
@@ -118,7 +119,8 @@
                                 <label class="control-label" style="position:relative; top:7px;">Profile Image:</label>
                             </div>
                             <div class="col-lg-8">
-                                <input type="file" class="filestyle" name="pimage" />
+                            <img src="profile_images/<?php echo $row['id'] . '.jpg?n=' . time(); ?> " width="70">
+                                <input type="file" class="filestyle" name="foto" />
                             </div>
                         </div>
                         <div class="modal-footer">

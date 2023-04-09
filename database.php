@@ -1,6 +1,6 @@
 <?php
 //Create database connection
-$mysqli = mysqli_connect("localhost","root","","phpcrud");
+$mysqli = mysqli_connect("localhost","root","","jesus");
 
 if (!$mysqli) {
 

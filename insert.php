@@ -1,15 +1,16 @@
 <?php
-    include ('database.php');
+    include 'database.php';
  
     $titulo=$_POST['titulo'];
     $autor=$_POST['autor'];
     $editorial=$_POST['editorial'];
     $resumen=$_POST['resumen'];
+    $categorias=$_POST['genero'];
     $existencia=$_POST['existencia'];
     $estatus=$_POST['estatus'];
     $campus=$_POST['campus'];
     $fecha=$_POST['fecha'];
-    $mysqli->query("insert into employee_basics (titulo, autor, editorial, resumen, existencia, estatus, campus, fecha) values ('$titulo', '$autor', '$editorial', '$resumen','$existencia', '$estatus', '$campus', '$fecha')"
+    $mysqli->query("insert into libros (titulo, autor, editorial, resumen, id_categoria, existencia, estatus, id_campus, fecha) values ('$titulo', '$autor', '$editorial', '$resumen', '$categorias', '$existencia', '$estatus', '$campus', '$fecha')"
     );
     $id = $mysqli->insert_id;
 

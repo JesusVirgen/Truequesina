@@ -1,6 +1,6 @@
 <?php
 include 'database.php';
 $id = $_GET['id'];
-$mysqli->query("delete from employee_basics where id=$id");
+$mysqli->query("delete from libros where id=$id");
 unlink("profile_images/" . $id . ".jpg");
 header('location:index.php');
